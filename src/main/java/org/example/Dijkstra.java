@@ -1,6 +1,6 @@
 package org.example;
 import java.util.*;
-public class Dijkstra<V> implements Search<V> {
+class Dijkstra<V> implements Search<V> {
     private WeightedGraph<V> graph;
     private Map<V, Double> distances;
     private Map<V, V> predecessors;
@@ -11,23 +11,15 @@ public class Dijkstra<V> implements Search<V> {
         this.predecessors = new HashMap<>();
     }
 
-    public Map<V, Double> getDistances() {
-        return distances;
-    }
-
-    public Map<V, V> getPredecessors() {
-        return predecessors;
-    }
-
-    @Override
     public void search(V start) {
-        PriorityQueue<Vertex<V>> priorityQueue = new PriorityQueue<>(Comparator.comparingDouble(distances::get));
+        for (Vertex<V> vertex : graph.getAllVertices()) {
+            distances.put(vertex.getData(), Double.MAX_VALUE);
+        }
+
+        PriorityQueue<Vertex<V>> priorityQueue = new PriorityQueue<>(Comparator.comparingDouble(vertex -> distances.get(vertex.getData())));
         Vertex<V> startVertex = graph.getVertex(start);
 
         if (startVertex != null) {
-            for (Vertex<V> vertex : graph.getAllVertices()) {
-                distances.put(vertex.getData(), Double.MAX_VALUE);
-            }
             distances.put(start, 0.0);
             priorityQueue.add(startVertex);
 
@@ -48,6 +40,11 @@ public class Dijkstra<V> implements Search<V> {
         }
     }
 
+    public Map<V, Double> getDistances() {
+        return distances;
+    }
 
+    public Map<V, V> getPredecessors() {
+        return predecessors;
+    }
 }
-

@@ -14,6 +14,10 @@ public class Main {
         BFS<Integer> bfs = new BFS<>(g);
         bfs.search(444);
 
+        Dijkstra<Integer> dijkstra = new Dijkstra<>(g);
+        dijkstra.search(444);
+        System.out.println("Distances: " + dijkstra.getDistances());
+        System.out.println("Predecessors: " + dijkstra.getPredecessors());
 
     }
 }
